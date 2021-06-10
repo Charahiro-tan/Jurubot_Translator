@@ -1,3 +1,4 @@
+_(Sorry, Japanese only...)_  
 # 🐻<Jurubot_Translator
 - A bot that translates Twitch chats.  
 - Twitchのチャットを翻訳するボット  
