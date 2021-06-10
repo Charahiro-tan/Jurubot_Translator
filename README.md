@@ -1,4 +1,5 @@
 _(Sorry, Japanese only...)_  
+**→If you can see this sentence in Japanese, please turn off the translation of your browser.←**  
 # 🐻<Jurubot_Translator
 - A bot that translates Twitch chats.  
 - Twitchのチャットを翻訳するボット  
