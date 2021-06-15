@@ -81,6 +81,7 @@ def get_emotes(streamer_id):
 
 def get_cheer(streamer_id):
     global cheer_compiled
+    print('Cheerエモート取得中....')
     client_id = user_info.client_id
     headers = {'Authorization':f'Bearer {oauth_key.token}', 'Client-id':client_id}
     URL = 'https://api.twitch.tv/helix/bits/cheermotes?broadcaster_id={}'.format(streamer_id)
@@ -93,6 +94,7 @@ def get_cheer(streamer_id):
         cheer_compiled = [re.compile(w, re.I) for w in cheer_re]
     else:
         cheer_compiled = []
+    print('Cheerエモート取得完了！')
 
 def ignore_compile():
     global del_word_compiled
