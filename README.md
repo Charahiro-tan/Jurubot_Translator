@@ -31,6 +31,8 @@ _(Sorry, Japanese only...)_
 ┣jurubot.py(ボットのメイン)  
 ┣get_token_auto.py(トークン取得スクリプト(ほぼ自動取得))  
 ┣get_token_manual.py(トークン取得スクリプト(少々手動))  
+┣config_bot.py(Bot関連の設定)  
+┣config_translator.py(翻訳関係の設定)  
 ┆  
 ┗(その他関連ファイル)  
   
