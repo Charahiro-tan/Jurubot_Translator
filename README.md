@@ -26,7 +26,14 @@ _(Sorry, Japanese only...)_
 3. config_bot.pyとconfig_translator.pyをいい感じにします
 4. enjoy!  
 (Readmeを読んでね)
+
+## 🐻｛ファイル構成  
+┣jurubot.py(ボットのメイン)  
+┣get_token_auto.py(トークン取得スクリプト(ほぼ自動取得))  
+┣get_token_manual.py(トークン取得スクリプト(少々手動))  
+┆  
+┗(その他関連ファイル)  
   
 ## 🐻｛プリーズJoin&Follow！
-- 更新情報、サポート、GoogleAppsScriptの図解等、なんでもやるけどなにもない[__Discordサーバー__](https://discord.gg/bhpBKCJV8R)(どなたでもお気軽にどうぞ)
+- 更新情報、サポート、GoogleAppsScriptの図解等[__Discordサーバー__](https://discord.gg/bhpBKCJV8R)(どなたでもお気軽にどうぞ)
 - [有益な情報が一切ないTwitter](https://twitter.com/__Charahiro)
