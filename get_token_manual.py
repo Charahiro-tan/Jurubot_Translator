@@ -12,12 +12,12 @@ token  = ''
 copy = False
 try:
     c = 'jurubot'
-    clip = pyperclip.paste()
+    temp = pyperclip.paste()
     pyperclip.copy(c)
     p = pyperclip.paste()
     if p == c:
+        pyperclip.copy(temp)
         copy = True
-        pyperclip(clip)
 except:
     pass
 
@@ -36,7 +36,7 @@ oauth:～という文字列が出てきたら、[Ctrl + C]でコピーしてく�
     while True:
         print('''
 認証ページにどうやって行きますか？
-(1) ブラウザで開く(多分Edge)
+(1) 既定のブラウザで開く(環境によっては関係なくEdge)
 (2) URLをクリップボードにコピーする
 (3) URLを表示する
 
@@ -72,8 +72,7 @@ oauth:～という文字列が出てきたら、[Ctrl + C]でコピーしてく�
 コピーした内容がそのまま読み込まれます。
 oauth:はついたままコピーしてください。
 
-コピーとペーストができることは確認してますが、もし読み込まれなかった場合は
-2分経つと入力できるようになるのでそこに貼り付けてください。
+もし読み込まれなかった場合は2分経つと入力できるようになるのでそこに貼り付けてください。
 
     ''')
         
@@ -103,7 +102,7 @@ oauth:～という文字列が出てきたら、[Ctrl + C]でコピーしてく�
     ''')
     print('''
 認証ページにどうやって行きますか？
-(1) ブラウザで開く(多分Edge)
+(1) 既定のブラウザで開く(環境によっては関係なくEdge)
 (2) URLを表示する
 
     ''')
@@ -147,11 +146,8 @@ if validate:
     with open ('oauth_key.py', mode='w') as f:
         f.write(f"token = '{token}'")
     
-    print('トークンが取得できました。3秒後に終了します...')
-    time.sleep(3)
+    print('トークンが取得できました。終了します...')
     quit()
 else:
-    print('どうしても取得できない場合はお知らせください')
-    print('3秒後に終了します....')
-    time.sleep(3)
+    print('終了します....')
     quit()

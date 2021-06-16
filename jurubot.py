@@ -1,13 +1,18 @@
 import asyncio
-import msg_formatter
 
 from pyfiglet import Figlet
 from twitchio.ext import commands
 
-import config_bot, config_translator, oauth_key
-import bouyomi, translator, user_info
 import check_token
 
+import bouyomi
+import msg_formatter
+import translator
+import user_info
+
+import config_bot
+import config_translator
+import oauth_key
 
 version = '1.0.0'
 
@@ -66,8 +71,8 @@ class Bot(commands.Bot):
                             await channel.send(f'{config_bot.send_message_prefix}{config_bot.timer_message}')
                         print(f'[{channel}]({self.bot_disp}){config_bot.send_message_prefix}{config_bot.timer_message}')
                         await asyncio.sleep(interval*60)
-        except:
-            pass
+        except Exception as e:
+            print(f'timer : {e}')
 
     async def event_message(self, message):
         # Botのメッセージは無視
@@ -80,26 +85,29 @@ class Bot(commands.Bot):
             await self.handle_commands(message)
             return
         
+        # コメント整形
+        formated_msg = msg_formatter.msg_fmt(message)
+        
         # 棒読みちゃん(受信したコメント用)
         if config_bot.bouyomi:
             if message.author.name.lower() not in self.ignore_user:
-                await self.bouyomi.bouyomi(message)
+                await self.bouyomi.bouyomi(message, formated_msg)
         print(f'[{message.author.display_name}({message.author.name})]{message.content}')
         
         
-        # 翻訳&棒読みちゃん(Bot用)
+        # 翻訳 & 棒読みちゃん(Bot用)
         if config_bot.translate:
-            send_msg, translated, gas_use = await self.translator.translator(message)
+            send_msg, translated, gas_use = await self.translator.translator(message, formated_msg)
             if send_msg:
-                # 棒読みちゃんが有効な時翻訳しただけのメッセージを渡す
-                if config_bot.bouyomi:
-                    if config_bot.bouyomi_bot:
-                        await self.bouyomi.bouyomi_bot(message, translated, self.bot_disp, self.bot_nick)
-                
                 if config_bot.send_me:
                     await message.channel.send_me(f'{config_bot.send_message_prefix}{send_msg}')
                 else:
                     await message.channel.send(f'{config_bot.send_message_prefix}{send_msg}')
+                
+                # 棒読みちゃんが有効な時翻訳しただけのメッセージを渡す
+                if config_bot.bouyomi:
+                    if config_bot.bouyomi_bot:
+                        await self.bouyomi.bouyomi_bot(message, translated, self.bot_disp, self.bot_nick)
                 
                 # GASを使っているかどうが表示したいのでここで表示する
                 if gas_use:
@@ -146,4 +154,4 @@ if __name__ == '__main__':
     try:
         bot.run()
     except Exception as e:
-        print(e)
+        print(f'Bot : {e}')

@@ -32,7 +32,7 @@ sender = True
 # "loginid" でログインID
 sender_name = "displayname"
 
-# 翻訳結果に言語情報((en → ja)みたいな)を付ける場合はTrue、付けない場合はFalse
+# 翻訳結果に言語情報(en ⇒ ja)を付ける場合はTrue、付けない場合はFalse
 language = True
 
 # Google Apps Scriptで作成したAPIを使用するときはTrue、しないときはFalse

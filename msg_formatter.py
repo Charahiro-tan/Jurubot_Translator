@@ -1,13 +1,12 @@
 import re
 
-from twitchio.client import Client
-
-import config_bot
-import config_translator
 import requests
 from natsort import natsorted
 
-import user_info, oauth_key
+import config_bot
+import config_translator
+import user_info
+import oauth_key
 
 del_word_def = [r"^(.)\1+$",r"ww+",r"ｗｗ+",r"^@\S*",r"https?://[\w!\?/\+\-_~=;\.,\*&@#\$%\(\)'\[\]]+"]
 
@@ -42,7 +41,7 @@ def msg_fmt(message):
             msg = w.sub('', msg)
     
     # 文頭のスペースを削除
-    msg = re.sub('^\s','',msg)
+    msg = re.sub('^\s+','',msg)
     
     return msg
 

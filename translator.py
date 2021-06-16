@@ -5,8 +5,6 @@ import aiohttp
 import config_translator
 from async_google_trans_new import AsyncTranslator, constant
 
-import msg_formatter
-
 
 class Translate:
     def __init__(self):
@@ -35,10 +33,10 @@ class Translate:
             self.session = aiohttp.ClientSession(connector=conn)
         print('翻訳の準備完了！')
     
-    async def translator(self, message):
+    async def translator(self, message, formated_msg):
         
         # メッセージが1文字以下の場合は無視
-        if len(message.content) <=1:
+        if len(formated_msg) <= 1:
             _ = __ = ___ =''
             return _, __, ___
         # メッセージが無視ユーザーの場合は無視
@@ -49,13 +47,7 @@ class Translate:
         # 入れ替え
         user = message.author.name
         display_name = message.author.display_name
-        
-        # 整形
-        msg = msg_formatter.msg_fmt(message)
-        
-        if len(msg) <= 1:
-            _ = __ = ___ =''
-            return _, __, ___
+        msg = formated_msg
         
         # 言語選択
         lang_src = None
@@ -82,7 +74,7 @@ class Translate:
             lang_src = lang_src[0]
             
             if lang_src.lower() in self.ignore_lang:
-                _ = __ = ___ =''
+                _ = __ = ___ = ''
                 return _, __, ___
             elif lang_src == config_translator.home_lang:
                 lang_tgt = config_translator.default_to_lang
@@ -91,34 +83,34 @@ class Translate:
         
         # 翻訳
         translated = ''
-        gas_used = False
+        gas_use = False
         
         if config_translator.gas:
-            translated, gas_used = await self.gas_trans(msg, lang_tgt, lang_src)
+            translated, gas_use = await self.gas_trans(msg, lang_tgt, lang_src)
         if not translated:
             trans_task = asyncio.create_task(self.gt.translate(msg, lang_tgt, lang_src))
             translated = await trans_task
         
         if not translated:
-            _ = __ = ___ =''
+            _ = __ = ___ = ''
             return _, __, ___
         
         # 投稿文組み立て
         send_msg = translated
         if config_translator.sender:
             if config_translator.sender_name == 'displayname':
-                send_msg = send_msg + f'[by {display_name}]'
+                send_msg = send_msg + f'〔{display_name}〕'
             elif config_translator.sender_name == 'loginid':
-                send_msg = send_msg + f'[by {user}]'
+                send_msg = send_msg + f'〔{user}〕'
         
         if config_translator.language:
-            send_msg = send_msg + f'({lang_src} → {lang_tgt})'
+            send_msg = send_msg + f'({lang_src} ⇒ {lang_tgt})'
         
-        return send_msg, translated, gas_used
+        return send_msg, translated, gas_use
     
     async def gas_trans(self, text, lang_tgt, lang_src):
         translated_text = ''
-        gas_used = False
+        gas_use = False
         params = {
             'text' : text,
             'target' : lang_tgt,
@@ -131,7 +123,7 @@ class Translate:
                     json = await res.json()
                     if json['code'] == 200:
                         translated_text = json['text']
-                        gas_used = True
-                        return translated_text, gas_used
+                        gas_use = True
+                        return translated_text, gas_use
         except:
-            return translated_text, gas_used
+            return translated_text, gas_use

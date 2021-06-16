@@ -58,13 +58,10 @@ class MyHandler(server.BaseHTTPRequestHandler):
                 with open ('oauth_key.py', mode='w') as f:
                     f.write(f"token = '{token}'")
                 
-                print('トークンが取得できました。3秒後に終了します...')
-                time.sleep(3)
+                print('トークンが取得できました。')
                 quit()
             else:
-                print('どうしても取得できない場合はDiscordサーバーまでお越しください....')
-                print('3秒後に終了します....')
-                time.sleep(3)
+                print('終了します....')
                 quit()
         else:
             self.wfile.write(html.encode())
