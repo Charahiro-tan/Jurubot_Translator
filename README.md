@@ -37,5 +37,5 @@ _(Sorry, Japanese only...)_
 ┗(その他関連ファイル)  
   
 ## 🐻｛プリーズJoin&Follow！
-- 更新情報、サポート、GoogleAppsScriptの図解等[__Discordサーバー__](https://discord.gg/bhpBKCJV8R)(どなたでもお気軽にどうぞ)
+- GoogleAppsScriptの図解やサポートからAmongUsのミュートボットまでいる[__Discordサーバー__](https://discord.gg/bhpBKCJV8R)(どなたでもお気軽にどうぞ)
 - [有益な情報が一切ないTwitter](https://twitter.com/__Charahiro)
