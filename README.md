@@ -3,7 +3,7 @@ _(Sorry, Japanese only...)_
 # 🐻｛Jurubot_Translator  
 [![CodeQL](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/codeql-analysis.yml)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Charahiro-tan/Jurubot_Translator/blob/main/LICENSE)
-[![TwitchIO](https://img.shields.io/badge/Twitch-IO-blue)](https://github.com/TwitchIO/TwitchIO)
+[![TwitchIO](https://img.shields.io/badge/Twitch-IO-ffff00)](https://github.com/TwitchIO/TwitchIO)
 [![Python](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/)
 [![りんご水](https://img.shields.io/badge/%E3%82%8A%E3%82%93%E3%81%94-%E6%B0%B4-ff69b4)](https://www.twitch.tv/hanaringosui)
 - A bot that translates Twitch chats.  
