@@ -25,7 +25,7 @@ _(Sorry, Japanese only...)_
 2. トークンを取得します
 3. config_bot.pyとconfig_translator.pyをいい感じにします
 4. enjoy!  
-(Readmeを読んでね)
+(質問はDiscordサーバーでお受けします。)  
 
 ## 🐻｛ファイル構成  
 ┣jurubot.py(ボットのメイン)  
