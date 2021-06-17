@@ -37,5 +37,5 @@ _(Sorry, Japanese only...)_
 ┗(その他関連ファイル)  
   
 ## 🐻｛プリーズJoin&Follow！
-- [__Discordサーバー__](https://discord.gg/bhpBKCJV8R)(どなたでもお気軽にどうぞ)
+- [__Discord Server__](https://discord.gg/bhpBKCJV8R)(どなたでもお気軽にどうぞ)
 - [有益な情報が一切ないTwitter](https://twitter.com/__Charahiro)
