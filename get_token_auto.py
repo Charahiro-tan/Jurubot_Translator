@@ -50,6 +50,7 @@ class MyHandler(server.BaseHTTPRequestHandler):
             self.wfile.write(close_html.encode())
             
             print('トークンをチェック中....')
+            time.sleep(1)
             validate, login_id = check_token.check_token(token)
             if validate:
                 print(f'Botに使うアカウントは「{login_id}」でよろしいですか？')
