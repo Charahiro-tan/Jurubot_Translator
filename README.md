@@ -2,7 +2,8 @@ _(Sorry, Japanese only...)_
 **→If you can see this sentence in Japanese, please turn off the translation of your browser.←**  
 # 🐻｛Jurubot_Translator  
 [![CodeQL](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/codeql-analysis.yml)
-[![OSSAR](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/ossar-analysis.yml/badge.svg)](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/ossar-analysis.yml)
+[![OSSAR](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/ossar-analysis.yml/badge.svg)](https://github.com/Charahiro-tan/Jurubot_Translator/actions/workflows/ossar-analysis.yml) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/46dffc9224e634d72f8b/maintainability)](https://codeclimate.com/github/Charahiro-tan/Jurubot_Translator/maintainability)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Charahiro-tan/Jurubot_Translator/blob/main/LICENSE)
 [![TwitchIO](https://img.shields.io/badge/Twitch-IO-ffff00)](https://github.com/TwitchIO/TwitchIO)
 [![Python](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/)
