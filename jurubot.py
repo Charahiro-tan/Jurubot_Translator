@@ -29,7 +29,7 @@ class Bot(commands.Bot):
         # ボットのディスプレイネームを取得
         print('ボットのディスプレイネームを取得中....')
         get_user_info = user_info.GetUserInfo()
-        self.bot_disp = get_user_info.get_display_name(bot_nick)
+        self.bot_disp, _ = get_user_info.get_user_info(bot_nick)
         if not self.bot_disp:
             self.bot_disp = bot_nick
             print('ボットのディスプレイネームの取得に失敗しました...(ログインできていれば翻訳には問題ありません)')

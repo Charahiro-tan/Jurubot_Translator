@@ -103,7 +103,7 @@ def ignore_compile():
     del_word_compiled = [re.compile(w) for w in del_word_list]
     
     get_user_info = user_info.GetUserInfo()
-    streamer_id = get_user_info.get_user_id(config_bot.channel)
+    _, streamer_id = get_user_info.get_user_info(config_bot.channel)
     # BTTV
     get_emotes(streamer_id)
     # Cheer
