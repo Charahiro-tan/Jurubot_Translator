@@ -23,9 +23,9 @@ def msg_fmt(message):
         emotes = message.tags['emotes']
         emote_pos = re.findall('\d+-\d+', emotes)
         emote_pos = natsorted(emote_pos, reverse=True)
-        for w in emote_pos:
-            w = w.split('-')
-            msg = msg[:int(w[0])] + msg[int(w[1]) +2:]
+        for pos in emote_pos:
+            pos = pos.split('-')
+            msg = msg[:int(pos[0])] + msg[int(pos[1]) +2:]
     
     # 削除ワード削除
     for w in del_word_compiled:
@@ -40,8 +40,8 @@ def msg_fmt(message):
         for w in cheer_compiled:
             msg = w.sub('', msg)
     
-    # 文頭のスペースを削除
-    msg = re.sub('^\s+','',msg)
+    # 文頭、文末のスペースを削除
+    msg = msg.strip()
     
     return msg
 
@@ -53,19 +53,20 @@ def get_emotes(streamer_id):
     ffz_global_url   = 'https://api.frankerfacez.com/v1/set/global'
 
     bttv_global_res  = requests.get(bttv_global_url)
-    ffz_global_res   = requests.get(ffz_global_url)
-    bttv_channel_res = requests.get(bttv_channel_url)
-
     if bttv_global_res.status_code == 200:
         bttv_global_json  = bttv_global_res.json()
         bttv_global_emote = [d.get('code') for d in bttv_global_json]
     else:
         bttv_global_emote = []
+    
+    ffz_global_res   = requests.get(ffz_global_url)
     if ffz_global_res.status_code == 200:
         ffz_global_json   = ffz_global_res.json()
         ffz_global_emote  = [d.get('name') for d in ffz_global_json['sets']['3']['emoticons']]
     else:
         ffz_global_emote  = []
+    
+    bttv_channel_res = requests.get(bttv_channel_url)
     if bttv_channel_res.status_code == 200:
         bttv_channel_json  = bttv_channel_res.json()
         bttv_channel_emote = [d.get('code') for d in bttv_channel_json['channelEmotes']]
@@ -81,9 +82,11 @@ def get_emotes(streamer_id):
 def get_cheer(streamer_id):
     global cheer_compiled
     print('Cheerエモート取得中....')
+    
     client_id = user_info.client_id
     headers = {'Authorization':f'Bearer {oauth_key.token}', 'Client-id':client_id}
     URL = 'https://api.twitch.tv/helix/bits/cheermotes?broadcaster_id={}'.format(streamer_id)
+    
     res = requests.get(URL, headers=headers)
     if res.status_code == 200:
         json = res.json()

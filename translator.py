@@ -14,7 +14,7 @@ class Translate:
         self.ignore_lang = [w.lower() for w in config_translator.ignore_lang]
         
         # 言語リスト準備
-        self.lang_list = list(constant.LANGUAGES.keys())
+        self.lang_list = set(constant.LANGUAGES.keys())
         
         # urlサフィックスチェック&インスタンス生成
         print('GoogleTranslateのURLのサフィックスをチェック中....')

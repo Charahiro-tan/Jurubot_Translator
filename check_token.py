@@ -6,7 +6,7 @@ url = 'https://id.twitch.tv/oauth2/validate'
 def check_token(token):
     validate = False
     login_id = ''
-    token = token.replace('oauth:','')
+    token = token.removeprefix('oauth:')
     header = {'Authorization':'OAuth {}'.format(token)}
     res = requests.get(url, headers=header)
     if res.status_code == 200:

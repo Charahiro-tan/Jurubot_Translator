@@ -46,8 +46,8 @@ class Bot(commands.Bot):
         print(f'\r\n{self.bot_disp}で{config_bot.channel}に接続しました！')
         
         # 色の設定
-        color_list = ['Red','Blue','Green','Firebrick','Coral','YellowGreen','OrengeRed','SeaGreen','GoldenRod','Chocolate','CadetBlue','DodgerBlue','HotPink','BlueViolet','SpringGreen']
-        if config_bot.bot_color in color_list:
+        color_set = set(['Red','Blue','Green','Firebrick','Coral','YellowGreen','OrengeRed','SeaGreen','GoldenRod','Chocolate','CadetBlue','DodgerBlue','HotPink','BlueViolet','SpringGreen'])
+        if config_bot.bot_color in color_set:
             color = config_bot.bot_color
         else:
             color = 'HotPink'
