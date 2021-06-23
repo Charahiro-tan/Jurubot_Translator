@@ -52,23 +52,33 @@ def get_emotes(streamer_id):
     bttv_channel_url = 'https://api.betterttv.net/3/cached/users/twitch/{}'.format(streamer_id)
     ffz_global_url   = 'https://api.frankerfacez.com/v1/set/global'
 
-    bttv_global_res  = requests.get(bttv_global_url)
-    if bttv_global_res.status_code == 200:
-        bttv_global_json  = bttv_global_res.json()
+    def get(url):
+        try:
+            res = requests.get(url)
+            if res.status_code == 200:
+                res_json = res.json()
+            else:
+                res_json = ''
+        except:
+            print(f'{url}からエモートが取得できませんでした....')
+            res_json = ''
+        return res_json
+    
+    
+    bttv_global_json  = get(bttv_global_url)
+    if bttv_global_json:
         bttv_global_emote = [d.get('code') for d in bttv_global_json]
     else:
         bttv_global_emote = []
     
-    ffz_global_res   = requests.get(ffz_global_url)
-    if ffz_global_res.status_code == 200:
-        ffz_global_json   = ffz_global_res.json()
+    ffz_global_json = get(ffz_global_url)
+    if ffz_global_json:
         ffz_global_emote  = [d.get('name') for d in ffz_global_json['sets']['3']['emoticons']]
     else:
         ffz_global_emote  = []
     
-    bttv_channel_res = requests.get(bttv_channel_url)
-    if bttv_channel_res.status_code == 200:
-        bttv_channel_json  = bttv_channel_res.json()
+    bttv_channel_json = get(bttv_channel_url)
+    if bttv_channel_json:
         bttv_channel_emote = [d.get('code') for d in bttv_channel_json['channelEmotes']]
         bttv_channel_sharedemote = [d.get('code') for d in bttv_channel_json['sharedEmotes']]
     else:
