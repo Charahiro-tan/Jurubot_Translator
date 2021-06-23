@@ -98,7 +98,6 @@ if __name__ == '__main__':
         else:
             print('1か2を入力してください....')
     
-    input('\r\nEnterを押すとサーバーを起動します....')
     host = 'localhost'
     port = 80
     httpd = server.HTTPServer((host, port), MyHandler)
