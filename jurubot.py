@@ -14,7 +14,7 @@ import config_bot
 import config_translator
 import oauth_key
 
-version = '1.0.0'
+version = '1.0.1'
 
 
 class Bot(commands.Bot):
