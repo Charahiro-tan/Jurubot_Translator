@@ -11,7 +11,6 @@ class Bouyomi:
         self.port = int(config_bot.bouyomi_port)
         self.bot_content = config_bot.bouyomi_bot_content
         self.listener_content = config_bot.bouyomi_content
-        self.session = aiohttp.ClientSession()
     
     async def bouyomi(self, message, formated_msg):
         
@@ -40,10 +39,11 @@ class Bouyomi:
     
     async def bouyomi_send(self, msg):
         params = {'text':msg}
-        try:
-            async with self.session.get('http://localhost:{}/Talk'.format(self.port), params=params, timeout=0.5) as res:
-                if res.status == 200:
-                    pass
-        except Exception as e:
-            print('棒読みちゃんに接続できませんでした...')
-            print(e)
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.get('http://localhost:{}/Talk'.format(self.port), params=params, timeout=0.5) as res:
+                    if res.status == 200:
+                        pass
+            except Exception as e:
+                print('棒読みちゃんに接続できませんでした...')
+                print(e)

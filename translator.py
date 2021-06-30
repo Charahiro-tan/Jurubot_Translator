@@ -1,4 +1,3 @@
-import asyncio
 import re
 
 import aiohttp
@@ -27,10 +26,6 @@ class Translate:
         print(f'URLサフィックス : "{url_suffix}"')
         self.gt = AsyncTranslator(url_suffix=url_suffix)
         
-        # GASの準備
-        if config_translator.gas:
-            conn = aiohttp.TCPConnector(ttl_dns_cache=300)
-            self.session = aiohttp.ClientSession(connector=conn)
         print('翻訳の準備完了！')
     
     async def translator(self, message, formated_msg):
@@ -59,8 +54,7 @@ class Translate:
             if split_msg[0].lower() in self.lang_list:
                 lang_tgt = split_msg[0]
                 msg = ':'.join(split_msg[1:])
-                detect_task = asyncio.create_task(self.gt.detect(msg))
-                lang_src = await detect_task
+                lang_src = await self.gt.detect(msg)
                 lang_src = lang_src[0]
             else:
                 msg = ':'.join(split_msg[0:])
@@ -69,8 +63,7 @@ class Translate:
         
         # 指定されていなかったとき
         if lang_tgt is None:
-            detect_task = asyncio.create_task(self.gt.detect(msg))
-            lang_src = await detect_task
+            lang_src = await self.gt.detect(msg)
             lang_src = lang_src[0]
             
             if lang_src.lower() in self.ignore_lang:
@@ -88,8 +81,7 @@ class Translate:
         if config_translator.gas:
             translated, gas_use = await self.gas_trans(msg, lang_tgt, lang_src)
         if not translated:
-            trans_task = asyncio.create_task(self.gt.translate(msg, lang_tgt, lang_src))
-            translated = await trans_task
+            translated = await self.gt.translate(msg, lang_tgt, lang_src)
         
         if not translated:
             _ = __ = ___ = ''
@@ -117,13 +109,14 @@ class Translate:
             'source'  : lang_src
         }
 
-        try:
-            async with self.session.get(config_translator.gas_url, params=params, timeout=3) as res:
-                if res.status == 200:
-                    json = await res.json()
-                    if json['code'] == 200:
-                        translated_text = json['text']
-                        gas_use = True
-                        return translated_text, gas_use
-        except:
-            return translated_text, gas_use
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.get(config_translator.gas_url, params=params, timeout=3) as res:
+                    if res.status == 200:
+                        json = await res.json()
+                        if json['code'] == 200:
+                            translated_text = json['text']
+                            gas_use = True
+                            return translated_text, gas_use
+            except:
+                return translated_text, gas_use
