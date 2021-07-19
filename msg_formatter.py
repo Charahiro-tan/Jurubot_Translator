@@ -1,6 +1,7 @@
 import re
 
 import requests
+from twitchio import Message
 from natsort import natsorted
 
 import config_bot
@@ -15,7 +16,7 @@ del_word_compiled = []
 cheer_compiled = []
 
 
-def msg_fmt(message):
+def msg_fmt(message: Message):
     msg = message.content
     
     # エモート削除
@@ -58,30 +59,30 @@ def get_emotes(streamer_id):
             if res.status_code == 200:
                 res_json = res.json()
             else:
-                res_json = ''
+                res_json = {}
         except:
             print(f'{url}からエモートが取得できませんでした....')
-            res_json = ''
+            res_json = {}
         return res_json
     
     
     bttv_global_json  = get(bttv_global_url)
-    if bttv_global_json:
+    try:
         bttv_global_emote = [d.get('code') for d in bttv_global_json]
-    else:
+    except:
         bttv_global_emote = []
     
     ffz_global_json = get(ffz_global_url)
-    if ffz_global_json:
+    try:
         ffz_global_emote  = [d.get('name') for d in ffz_global_json['sets']['3']['emoticons']]
-    else:
+    except:
         ffz_global_emote  = []
     
     bttv_channel_json = get(bttv_channel_url)
-    if bttv_channel_json:
+    try:
         bttv_channel_emote = [d.get('code') for d in bttv_channel_json['channelEmotes']]
         bttv_channel_sharedemote = [d.get('code') for d in bttv_channel_json['sharedEmotes']]
-    else:
+    except:
         bttv_channel_emote = []
         bttv_channel_sharedemote = []
     
@@ -100,13 +101,18 @@ def get_cheer(streamer_id):
     res = requests.get(URL, headers=headers)
     if res.status_code == 200:
         json = res.json()
-        cheer_list     = [d.get('prefix') for d in json['data']]
-        cheer_list.sort(key=len, reverse=True)
-        cheer_re       = [w+'\d+' for w in cheer_list]
-        cheer_compiled = [re.compile(w, re.I) for w in cheer_re]
+        try:
+            cheer_list     = [d.get('prefix') for d in json['data']]
+            cheer_list.sort(key=len, reverse=True)
+            cheer_re       = [w+'\d+' for w in cheer_list]
+            cheer_compiled = [re.compile(w, re.I) for w in cheer_re]
+            print('Cheerエモート取得完了！')
+        except:
+            cheer_compiled = []
+            print('Cheerエモートの取得に失敗しました‥‥')
     else:
         cheer_compiled = []
-    print('Cheerエモート取得完了！')
+        print('Cheerエモートの取得に失敗しました‥‥')
 
 def ignore_compile():
     global del_word_compiled
