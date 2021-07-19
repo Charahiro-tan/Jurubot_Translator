@@ -3,6 +3,7 @@ import re
 import aiohttp
 import config_translator
 from async_google_trans_new import AsyncTranslator, constant
+from twitchio import Message
 
 
 class Translate:
@@ -14,6 +15,8 @@ class Translate:
         
         # 言語リスト準備
         self.lang_list = set(constant.LANGUAGES.keys())
+        self.home_lang = config_translator.home_lang
+        self.def_to_lang = config_translator.default_to_lang
         
         # urlサフィックスチェック&インスタンス生成
         print('GoogleTranslateのURLのサフィックスをチェック中....')
@@ -28,7 +31,7 @@ class Translate:
         
         print('翻訳の準備完了！')
     
-    async def translator(self, message, formated_msg):
+    async def translator(self, message: Message, formated_msg):
         
         # メッセージが1文字以下の場合は無視
         if len(formated_msg) <= 1:
@@ -69,19 +72,19 @@ class Translate:
             if lang_src.lower() in self.ignore_lang:
                 _ = __ = ___ = ''
                 return _, __, ___
-            elif lang_src == config_translator.home_lang:
-                lang_tgt = config_translator.default_to_lang
+            elif lang_src.lower() == self.home_lang.lower():
+                lang_tgt = self.def_to_lang
             else:
-                lang_tgt = config_translator.home_lang
+                lang_tgt = self.home_lang
         
         # 翻訳
         translated = ''
         gas_use = False
         
         if config_translator.gas:
-            translated, gas_use = await self.gas_trans(msg, lang_tgt, lang_src)
+            translated, gas_use = await self.gas_trans(msg, lang_tgt.lower(), lang_src.lower())
         if not translated:
-            translated = await self.gt.translate(msg, lang_tgt, lang_src)
+            translated = await self.gt.translate(msg, lang_tgt.lower(), lang_src.lower())
         
         if not translated:
             _ = __ = ___ = ''
