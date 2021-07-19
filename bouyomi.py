@@ -1,6 +1,7 @@
 import re
 
 import aiohttp
+from twitchio import Message
 
 import config_bot
 
@@ -12,7 +13,7 @@ class Bouyomi:
         self.bot_content = config_bot.bouyomi_bot_content
         self.listener_content = config_bot.bouyomi_content
     
-    async def bouyomi(self, message, formated_msg):
+    async def bouyomi(self, message: Message, formated_msg):
         
         msg = message.content
         display_name = message.author.display_name
@@ -32,7 +33,7 @@ class Bouyomi:
             bouyomi_message = self.listener_content.format(sender_name=login_id, sender_disp=display_name, raw_msg=msg, emote_del_msg=formated_msg)
             await self.bouyomi_send(bouyomi_message)
 
-    async def bouyomi_bot(self, message, translated, disp_name, login):
+    async def bouyomi_bot(self, message: Message, translated, disp_name, login):
         
         bouyomi_message = self.bot_content.format(bot_name=login, bot_disp=disp_name, msg=translated, sender_name=message.author.name, sender_disp=message.author.display_name)
         await self.bouyomi_send(bouyomi_message)

@@ -1,6 +1,7 @@
 import asyncio
 
 from pyfiglet import Figlet
+from twitchio import Message, Context, Channel
 from twitchio.ext import commands
 
 import check_token
@@ -42,7 +43,7 @@ class Bot(commands.Bot):
     
 
     async def event_ready(self):
-        channel = bot.get_channel(config_bot.channel)
+        channel: Channel = bot.get_channel(config_bot.channel)
         print(f'\r\n{self.bot_disp}で{config_bot.channel}に接続しました！')
         
         # 色の設定
@@ -74,7 +75,7 @@ class Bot(commands.Bot):
         except Exception as e:
             print(f'timer : {e}')
 
-    async def event_message(self, message):
+    async def event_message(self, message: Message):
         # Botのメッセージは無視
         if message.echo:
             # print(f'[{message.channel}]({self.bot_disp}){message.content}')
@@ -116,14 +117,14 @@ class Bot(commands.Bot):
 
     # !ver
     @commands.command(name='ver')
-    async def ver(self, ctx):
+    async def ver(self, ctx: Context):
         if config_bot.send_me:
             await ctx.send_me(f'{config_bot.send_message_prefix}このBotはJurubotTranslator ver{version}です！ http://neko2.net/jurubot ')
         else:
             await ctx.send(f'{config_bot.send_message_prefix}このBotはJurubotTranslator ver{version}です！ http://neko2.net/jurubot ')
     # !lang
     @commands.command(name='lang')
-    async def lang(self, ctx):
+    async def lang(self, ctx: Context):
         if config_bot.send_me:
             await ctx.send_me(f'{config_bot.send_message_prefix}言語コード一覧はこちらです！ https://cloud.google.com/translate/docs/languages ')
         else:
