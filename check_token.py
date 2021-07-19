@@ -3,7 +3,7 @@ import requests
 client_id = '0vak4vlm2cdhrpwgq1iabfs38u5h5d'
 url = 'https://id.twitch.tv/oauth2/validate'
 
-def check_token(token):
+def check_token(token: str):
     validate = False
     login_id = ''
     token = token.removeprefix('oauth:')
